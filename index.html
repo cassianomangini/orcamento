@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Orçamento • Artesópolis</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <style>
+    :root {
+      --roxo: #9f6fff;
+      --roxo-escuro: #3e2463;
+      --roxo-pastel: #c7bbf7;
+      --azul: #1e2337;
+      --papel: #f7f3ef;
+      --verde-whatsapp: #25d366;
+      --radius: 1.7rem;
+      --radius-sm: 0.9rem;
+      --shadow-main: 0 8px 50px 0 #3e246340, 0 2px 12px 0 #0002;
+      --font-base: 'Cabin', Arial, sans-serif;
+      --font-title: 'Cabin', cursive;
+      --transition: .18s cubic-bezier(.4,0,.2,1);
+    }
+    html, body {
+      min-height: 100vh;
+      background: var(--azul);
+      font-family: var(--font-base);
+      margin: 0;
+      padding: 0;
+      font-size: 15px;
+    }
+    body {
+      background-image: url("data:image/svg+xml,%3Csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' fill='%231e2337'/%3E%3Crect width='100%25' height='100%25' opacity='0.06' filter='url(%23noise)'/%3E%3C/svg%3E");
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      justify-content: center;
+    }
+    .orcamento-painel {
+      background: var(--papel);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-main);
+      max-width: 900px;
+      width: 97vw;
+      margin: 2.5rem auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      border: 3px solid var(--roxo-pastel);
+      position: relative;
+      z-index: 1;
+    }
+    .orcamento-banner-img {
+      width: 100%;
+      display: block;
+      border-top-left-radius: var(--radius);
+      border-top-right-radius: var(--radius);
+      margin: 0 0 1.2rem 0;
+      max-height: 300px;
+      object-fit: cover;
+      box-shadow: 0 4px 14px #1e2337a0;
+    }
+    .orcamento-title {
+      font-family: var(--font-title);
+      font-size: 2.8rem;
+      color: var(--roxo);
+      text-align: center;
+      font-weight: 700;
+      line-height: 1.2;
+      text-shadow: 0 2px 14px #9f6fff44;
+      filter: drop-shadow(0 3px 10px #9f6fff33);
+      letter-spacing: .03em;
+    }
+    .orcamento-info, .orcamento-validade {
+      background: #fff9;
+      border-radius: var(--radius-sm);
+      box-shadow: 0 2px 12px 0 #c7bbf722;
+      font-family: var(--font-base);
+      font-weight: 500;
+      color: #3e2463;
+      font-size: 1.2rem;
+    }
+    .orcamento-info {
+      padding: 1.25rem 1.1rem 0.85rem 1.1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.95em;
+      border-left: 4px solid var(--roxo);
+      margin-bottom: 1.2rem;
+      margin-top: 0.1rem;
+    }
+    .orcamento-info span {
+      display: flex;
+      align-items: center;
+      gap: 0.75em;
+      margin-bottom: 0.18em;
+      font-size: 1em;
+    }
+    .orcamento-info .icon {
+      width: 2.3em;
+      height: 2.3em;
+      opacity: 0.95;
+      color: var(--roxo);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      filter: drop-shadow(0 1px 4px #9f6fff33);
+    }
+    .orcamento-info strong {
+      font-weight: 700;
+      color: var(--roxo-escuro);
+    }
+    .orcamento-info .client-badge {
+      background: linear-gradient(90deg, #e3cfff 70%, #c7bbf7 100%);
+      color: var(--roxo-escuro);
+      border-radius: 0.8em;
+      padding: 0.1em 0.7em;
+      font-size: 1.2em;
+      margin-left: 0.3em;
+      font-family: var(--font-title);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      display: flex;
+      align-items: center;
+      gap: 0.35em;
+    }
+    .orcamento-table {
+      width: 100%;
+      border-radius: var(--radius-sm);
+      overflow-x: auto;
+      margin: 0 auto;
+      box-shadow: 0 2px 12px 0 #c7bbf710;
+      border: 1.5px solid #e8e1fd;
+      background: #f9f8ff;
+    }
+    .orcamento-table table {
+      border-collapse: collapse;
+      width: 100%;
+      min-width: 700px;
+      font-size: 1.16rem;
+    }
+    .orcamento-table th, .orcamento-table td {
+      padding: 0.6em 0.6em;
+      text-align: center;
+      line-height: 2em;
+    }
+    .orcamento-table th {
+      background: var(--roxo-pastel);
+      color: var(--roxo-escuro);
+      font-family: var(--font-base);
+      font-weight: 700;
+      border-bottom: 2px solid #b9a4e2;
+      text-transform: uppercase;
+      font-size: 1.04em;
+      letter-spacing: 0.04em;
+    }
+    .orcamento-table tr:not(:last-child) td {
+      border-bottom: 1px dashed #e4d6fa;
+    }
+    .orcamento-table td {
+      color: #2e233b;
+      background: transparent;
+      vertical-align: middle;
+      font-size: 0.94em;
+    }
+    .orcamento-link {
+      background: var(--roxo);
+      color: #fff;
+      border-radius: 1.2em;
+      padding: 0.32em 1.1em;
+      font-weight: 700;
+      font-size: 1em;
+      text-decoration: none;
+      box-shadow: 0 1px 7px #9f6fff2c;
+      border: none;
+      transition: background var(--transition), box-shadow var(--transition);
+      cursor: pointer;
+      display: inline-block;
+    }
+    .orcamento-link:hover {
+      background: #623fae;
+      box-shadow: 0 3px 18px #9f6fff44;
+    }
+    .input-qty {
+      width: 54px;
+      border: 1.5px solid #d1bcf3;
+      border-radius: 0.6em;
+      font-size: 1em;
+      background: #fff;
+      color: #2e233b;
+      outline: none;
+      text-align: center;
+      transition: border var(--transition);
+      padding: 0.28em 0;
+    }
+    .input-qty:focus {
+      border-color: var(--roxo);
+      background: #f7f3ef;
+    }
+    .input-price {
+      width: 90px;
+      border: none;
+      background: transparent;
+      pointer-events: none;
+      font-weight: bold;
+      cursor: default;
+      text-align: center;
+      color: #2e233b;
+      font-size: 1em;
+    }
+    .orcamento-checkbox {
+      width: 1.3em;
+      height: 1.3em;
+      accent-color: var(--roxo);
+      cursor: pointer;
+      margin: 0;
+      transform: translateY(2px);
+    }
+    .orcamento-total-value {
+      font-weight: 700;
+      color: var(--roxo-escuro);
+      background: #ece6ff;
+      border-radius: 0.7em;
+      padding: 0.16em 0.6em;
+      font-size: 1.05em;
+      box-shadow: 0 1px 7px #9f6fff2c;
+      text-align: center;
+    }
+    .orcamento-totais {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.2em;
+      font-size: 1em;
+      padding-top: 0.7em;
+      border-top: 2px dotted #d7c6ef;
+      gap: 1em;
+      flex-wrap: wrap;
+    }
+    .totais-esq, .totais-dir {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      min-width: 210px;
+    }
+    .totais-esq { margin-left: 2.5em; justify-content: flex-start; }
+    .totais-dir { margin-right: 2.5em; justify-content: flex-end; }
+    .badge {
+      background: linear-gradient(90deg, var(--roxo), var(--roxo-escuro) 90%);
+      color: #fff;
+      border-radius: 1em;
+      padding: 0.18em 1.4em;
+      font-weight: 700;
+      box-shadow: 0 1px 7px #9f6fff22;
+      font-size: 1.08em;
+      margin-left: 0.7em;
+      letter-spacing: 0.03em;
+      font-family: var(--font-base);
+      filter: drop-shadow(0 2px 8px #9f6fff33);
+    }
+    .badge.valor {
+      font-size: 1.09em;
+      font-family: var(--font-base);
+      font-weight: 700;
+      padding: 0.14em 1.7em;
+      margin-left: 0.9em;
+    }
+    .orcamento-validade {
+      margin-top: 1.6em;
+      text-align: center;
+      color: #8c7bcc;
+      font-size: 1.21em;
+      font-family: var(--font-title);
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      filter: drop-shadow(0 1px 6px #9f6fff33);
+      box-shadow: none;
+      border-radius: 0;
+      background: transparent;
+    }
+    .orcamento-whatsapp {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 1.25em;
+      gap: 0.6em;
+    }
+    .orcamento-whatsapp-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.6em;
+      background: linear-gradient(90deg, #25d366 70%, #9f6fff 100%);
+      color: #fff;
+      border: none;
+      border-radius: 2em;
+      padding: 0.95em 2.2em 0.95em 1.8em;
+      font-size: 1.22em;
+      font-weight: 700;
+      text-decoration: none;
+      font-family: var(--font-base);
+      box-shadow: 0 2px 18px #25d36633, 0 0px 7px #9f6fff22;
+      cursor: pointer;
+      transition: filter var(--transition), box-shadow var(--transition);
+      outline: none;
+      animation: pulse 1.8s infinite alternate;
+    }
+    .orcamento-whatsapp-btn:hover {
+      filter: brightness(1.1);
+      box-shadow: 0 0 11px #25d36677, 0 0 14px #9f6fff44;
+      animation: none;
+    }
+    @keyframes pulse {
+      from { box-shadow: 0 2px 18px #25d36633, 0 0px 7px #9f6fff22;}
+      to { box-shadow: 0 0 29px #25d36677, 0 0 24px #9f6fff44;}
+    }
+    .orcamento-whatsapp-btn .icon {
+      width: 2em;
+      height: 2em;
+      margin-bottom: 1px;
+    }
+    .orcamento-insta-link {
+      color: var(--roxo-escuro);
+      font-size: 1.2em;
+      text-decoration: underline;
+      margin-top: 0.3em;
+      font-family: var(--font-title);
+      letter-spacing: 0.02em;
+      margin-bottom: 20px;
+    }
+    .orcamento-insta-link:hover {
+      color: var(--roxo);
+    }
+    .footer {
+      width: 100%;
+      margin-top: 1.7rem;
+      text-align: center;
+      font-size: 1.17em;
+      color: #8c7bcc;
+      background: transparent;
+      font-family: var(--font-title);
+      letter-spacing: 0.02em;
+      padding-bottom: 1.1rem;
+      z-index: 0;
+    }
+    /* Responsivo */
+    @media (max-width: 900px) {
+      html, body { font-size: 15x; }
+      .orcamento-painel { max-width: 99vw; }
+      .orcamento-title { font-size: 2rem; }
+      .orcamento-info { font-size: 1.08rem; }
+      .orcamento-table table { min-width: 500px; font-size: 0.99rem; }
+      .totais-esq, .totais-dir { min-width: 120px; margin-left: 0.8em; margin-right: 0.8em;}
+      .orcamento-table th, .orcamento-table td { padding: 0.1em 0.1em; }
+    }
+    @media (max-width: 600px) {
+      html, body { font-size: 12px; }
+      .orcamento-title { font-size: 1.3rem; }
+      .orcamento-info { font-size: 0.9em; }
+      .orcamento-table table { min-width: 340px; }
+      .totais-esq, .totais-dir { min-width: 70px; }
+      .orcamento-whatsapp-btn { padding: 0.7em 1.3em 0.7em 1.0em; font-size: 0.85em; }
+    }
+    @media (max-width: 440px) {
+      html, body { font-size: 12px; }
+      .orcamento-title { font-size: 1.1rem; }
+      .orcamento-info { font-size: 0.93em; }
+      .orcamento-painel { padding: 0 0.2rem 0.7rem 0.2rem; }
+      .orcamento-table th, .orcamento-table td { font-size: 0.6em; padding: 0.1em 0.1em; }
+    }
+  </style>
+</head>
+<body>
+  <div class="orcamento-painel">
+    <img class="orcamento-banner-img" src="https://hkembpwsrhpkfslwovzs.supabase.co/storage/v1/object/public/imagens/fundos/Captura%20de%20tela%202025-06-24%20074338.png" alt="Banner Artesópolis" />
+    <div class="orcamento-title">Orçamento</div>
+    <div class="orcamento-info">
+      <span>
+        <i class="ph ph-file-text icon" aria-label="Número"></i>
+        <strong>Nº:</strong> 0825
+      </span>
+      <span>
+        <i class="ph ph-user-circle icon" aria-label="Cliente"></i>
+        <strong>Cliente:</strong>
+        <span class="client-badge">
+          <i class="ph ph-smiley-wink icon" aria-label="badge"></i>
+          Juninho Maconheiro
+        </span>
+      </span>
+      <span>
+        <i class="ph ph-whatsapp-logo icon" aria-label="Telefone"></i>
+        <strong>Telefone:</strong> (13) 99766-5510
+      </span>
+      <span>
+        <i class="ph ph-calendar-blank icon" aria-label="Data"></i>
+        <strong>Data:</strong> 24/06/2025
+      </span>
+    </div>
+    <div class="orcamento-table">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>Qtd</th>
+            <th>Nome</th>
+            <th>Inglês</th>
+            <th>Medidas</th>
+            <th>Link</th>
+            <th>Valor Unit.</th>
+            <th>Valor Total</th>
+          </tr>
+        </thead>
+        <tbody id="itens-body"></tbody>
+      </table>
+    </div>
+    <div class="orcamento-totais">
+      <div class="totais-esq">
+        <span>Total de Itens: <span class="badge" id="total-itens">0</span></span>
+      </div>
+      <div class="totais-dir">
+        <span>Valor Total: <span class="badge valor" id="valor-total">R$ 0,00</span></span>
+      </div>
+    </div>
+    <div class="orcamento-validade">
+      Orçamento válido por 15 dias.
+    </div>
+    <div class="orcamento-whatsapp">
+      <a class="orcamento-whatsapp-btn" href="https://wa.me/5513997665510?text=Ol%C3%A1%2C+gostaria+de+fazer+um+pedido+do+or%C3%A7amento+%230825+da+Artes%C3%B3polis." target="_blank">
+        <svg class="icon" viewBox="0 0 32 32"><circle fill="#fff" cx="16" cy="16" r="16"/><path d="M16 6.5a9.5 9.5 0 0 0-8.19 14.59L6.5 25.5l4.58-1.28A9.5 9.5 0 1 0 16 6.5zm5.42 13.08c-.23.65-1.35 1.28-1.84 1.36-.5.09-.51.09-1.09-.06-.25-.06-.57-.18-.97-.36-1.7-.72-2.8-2.4-2.89-2.52-.09-.13-.69-.92-.69-1.76 0-.84.44-1.25.6-1.42.14-.15.3-.18.4-.18.1 0 .2.01.29.01.09 0 .22-.03.34.26.13.31.44 1.07.48 1.16.04.09.07.2.01.33-.06.13-.09.21-.17.33-.09.13-.18.27-.25.36-.08.09-.17.19-.07.37.09.18.43.7.93 1.14.63.56 1.15.73 1.33.81.18.08.29.07.4-.04.11-.12.46-.53.59-.71.13-.18.25-.14.43-.08.18.06 1.13.53 1.33.62.2.09.33.13.38.2.05.07.05.39-.18 1.04z" fill="#25d366"/></svg>
+        Enviar pedido no WhatsApp
+      </a>
+      <a class="orcamento-insta-link" href="https://www.instagram.com/artesopolis" target="_blank">@artesopolis</a>
+    </div>
+  </div>
+  <div class="footer">
+    Artesópolis — Viaje na sua criatividade!<br>
+    2025 — Todos os direitos reservados.
+  </div>
+  <script>
+    const itens = [
+  {
+    "qtd": 1,
+    "nome": "Formiga Jardineira com Pá",
+    "en": "Mini Gardener Ant Sculpture Digging with a Shovel",
+    "medidas": "L 6.94 x A 13.18 x P 0.30 cm",
+    "url": "https://makerworld.com/pt/models/1502384-mini-gardener-ant-sculpture-digging-with-a-shovel#profileId-1571762",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Caveira Sombria Urbana",
+    "en": "Inner Gloom Street Skull Reaper",
+    "medidas": "L 2.37 x A 2.60 x P 5.00 cm",
+    "url": "https://makerworld.com/pt/models/1491686-inner-gloom-street-skull-reaper#profileId-1559257",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Gota Tribal Estilizada",
+    "en": "Tribal Teardrop Clay Cutter for Polymer Clay",
+    "medidas": "L 2.05 x A 4.26 x P 1.70 cm",
+    "url": "https://makerworld.com/pt/models/729783-tribal-teardrop-clay-cutter-for-polymer-clay?from=search#profileId=756160",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Lua com Duplo Círculo",
+    "en": "Double Circle Clay Earring Moon Pendant Cutter",
+    "medidas": "L 4.23 x A 6.20 x P 1.27 cm",
+    "url": "https://makerworld.com/pt/models/1483889-double-circle-clay-earring-moon-pendant-cutter?from=search#profileId=1549927",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Pingente Abstrato Articulado",
+    "en": "Abstract Dangle Clay Cutter for Polymer Clay",
+    "medidas": "L 2.07 x A 3.80 x P 1.35 cm",
+    "url": "https://makerworld.com/pt/models/944866-abstract-dangle-clay-cutter-for-polymer-clay?from=search",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Mini Cortador Laranja Contorno Fino",
+    "en": "Orange Clay Cutter Micro Outline",
+    "medidas": "L 3.34 x A 3.34 x P 0.90 cm",
+    "url": "https://makerworld.com/pt/models/1190019-orange-clay-cutter-micro-outline?from=search#profileId=1201663",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Gota Lisa para Brincos",
+    "en": "Clay Cutter Drop",
+    "medidas": "L 1.64 x A 4.12 x P 1.00 cm",
+    "url": "https://makerworld.com/pt/models/917665-clay-cutter-drop?from=search#profileId=879325",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Cortador de Coração Suave",
+    "en": "Heart Cutter for Clay or Cookies",
+    "medidas": "L 1.70 x A 1.63 x P 1.10 cm",
+    "url": "https://makerworld.com/pt/models/120636-heart-cutter-for-clay-or-cookies?from=search#profileId=129783",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Cortador Boho Curvas Modernas",
+    "en": "Unique Boho 02 Clay Cutter for Polymer Clay",
+    "medidas": "L 3.60 x A 5.45 x P 1.35 cm",
+    "url": "https://makerworld.com/pt/models/595760-unique-boho-02-clay-cutter-for-polymer-clay?from=search#profileId=756039",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Base Clássica para Brincos",
+    "en": "Earring Clay Cutter",
+    "medidas": "L 10.77 x A 11.40 x P 1.60 cm",
+    "url": "https://makerworld.com/pt/models/617121-earring-clay-cutter?from=search#profileId=540756",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Folha de Três Pontas Elegante",
+    "en": "Three Part Leaf Feather Clay Cutter Earring",
+    "medidas": "L 2.43 x A 2.97 x P 1.25 cm",
+    "url": "https://makerworld.com/pt/models/1245566-three-part-leaf-feather-clay-cutter-earring?from=search#profileId=1266929",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Cortador de Pétalas Finas",
+    "en": "Clay Petal Cutter",
+    "medidas": "L 9.63 x A 12.59 x P 1.00 cm",
+    "url": "https://makerworld.com/pt/models/742063-clay-petal-cutter?from=search#profileId=674562",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Lua Texturizada com Flor",
+    "en": "Floral Embossed Moon Polymer Clay Earring Cutter",
+    "medidas": "L 4.24 x A 6.20 x P 1.27 cm",
+    "url": "https://makerworld.com/pt/models/698937-floral-embossed-moon-polymer-clay-earring-cutter?from=search#profileId=628173",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Ovo Estilizado Miniatura",
+    "en": "Egg Clay Earring Cutter",
+    "medidas": "L 8.80 x A 9.10 x P 1.40 cm",
+    "url": "https://makerworld.com/pt/models/638485-egg-clay-earring-cutter?from=search#profileId=564039",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Molde Circular Criativo nº13",
+    "en": "Polymer Clay Earring Mold 13",
+    "medidas": "L 10.70 x A 11.20 x P 1.60 cm",
+    "url": "https://makerworld.com/pt/models/740273-polymer-clay-earring-mold-13?from=search#profileId=672656",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Molde Geométrico Moderno nº38",
+    "en": "Polymer Clay Earring Mold 38",
+    "medidas": "L 2.25 x A 3.62 x P 1.30 cm",
+    "url": "https://makerworld.com/pt/models/1070691-polymer-clay-earring-mold-38?from=search#profileId=1060520",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Molde Elegante nº51",
+    "en": "Polymer Clay Earring Mold 51",
+    "medidas": "L 2.42 x A 7.69 x P 1.30 cm",
+    "url": "https://makerworld.com/pt/models/1281927-polymer-clay-earring-mold-51?from=search#profileId=1310030",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Kit de Cortadores Artísticos nº7",
+    "en": "Polymer Clay Cutter Mold Shape Pack 7",
+    "medidas": "L 10.77 x A 11.30 x P 1.60 cm",
+    "url": "https://makerworld.com/pt/models/1511116-polymer-clay-cutter-mold-shape-pack-7#profileId=1582191",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Soldadinho Malcriado Mini",
+    "en": "Green Army Man Soldier Middle Fingers Up Mini USA",
+    "medidas": "L 2.10 x A 3.51 x P 6.10 cm",
+    "url": "https://makerworld.com/pt/models/1495986-green-army-man-soldier-middle-fingers-up-mini-usa#profileId-1564328",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Mini Prancha de Dedo",
+    "en": "Fingersurfboard",
+    "medidas": "L 12.50 x A 7.13 x P 1.36 cm",
+    "url": "https://makerworld.com/pt/models/1502714-fingersurfboard#profileId=1574634",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Caixa Japonesa Estilizada",
+    "en": "Iris Storage Box",
+    "medidas": "L 11.44 x A 11.73 x P 0.95 cm",
+    "url": "https://makerworld.com/pt/models/1504492-iris-storage-box#profileId=1574292",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Porta-Remédio Compacto",
+    "en": "Pocket Pill Box Mini Box Small Storage Only 5g SMA",
+    "medidas": "L 4.00 x A 4.58 x P 1.20 cm",
+    "url": "https://makerworld.com/pt/models/1501442-pocket-pill-box-mini-box-small-storage-only-5g-sma#profileId=1570752",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Gorila Dá Um Toca",
+    "en": "High Five Gorilla",
+    "medidas": "L 3.06 x A 2.48 x P 3.16 cm",
+    "url": "https://makerworld.com/pt/models/1508952-high-five-gorilla#profileId=1579617",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Estátua Elefante com Filhote",
+    "en": "Elephant Mother Baby Statue",
+    "medidas": "L 9.62 x A 4.20 x P 7.75 cm",
+    "url": "https://makerworld.com/pt/models/1502741-elephant-mother-baby-statue#profileId=1572252",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Formiga Decorativa com Pá",
+    "en": "Garden Ant Sculpture",
+    "medidas": "L 6.94 x A 13.18 x P 0.30 cm",
+    "url": "https://makerworld.com/pt/models/1502358-garden-ant-sculpture#profileId=1571738",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Esqueleto Flexível com Óculos",
+    "en": "Flexi Skeleton Sunglasses Keychain",
+    "medidas": "L 3.66 x A 10.06 x P 1.89 cm",
+    "url": "https://makerworld.com/pt/models/1492932-flexi-skeleton-sunglasses-keychain#profileId=1560865",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Cubo Puzzle de Viagem",
+    "en": "Travel Cube Puzzle",
+    "medidas": "L 11.19 x A 7.72 x P 2.09 cm",
+    "url": "https://makerworld.com/pt/models/1503885-travel-cube-puzzle#profileId=1573591",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Calço de Porta com Setas",
+    "en": "Stackable Arrow Door Wedge Door Stop",
+    "medidas": "L 4.50 x A 10.90 x P 1.39 cm",
+    "url": "https://makerworld.com/pt/models/1509531-stackable-arrow-door-wedge-door-stop#profileId=1580292",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Plaquinha “Sem Ideia”",
+    "en": "I Have No Idea What I Am Doing",
+    "medidas": "L 6.22 x A 4.77 x P 0.14 cm",
+    "url": "https://makerworld.com/pt/models/1489771-i-have-no-idea-what-i-am-doing#profileId=1556944",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Formiga com Regador",
+    "en": "Garden Ant Sculpture with a Watering Can",
+    "medidas": "L 8.03 x A 12.69 x P 0.30 cm",
+    "url": "https://makerworld.com/pt/models/1502373-garden-ant-sculpture-with-a-watering-can#profileId=1571751",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Plaquinha “Problema do Eu do Futuro”",
+    "en": "That Sounds Like a Tomorrow Problem",
+    "medidas": "L 5.40 x A 7.54 x P 0.16 cm",
+    "url": "https://makerworld.com/pt/models/1495714-that-sounds-like-a-tomorrow-problem#profileId=1564028",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Pássaro com Plug",
+    "en": "Bird with Plug",
+    "medidas": "L 14.00 x A 21.36 x P 2.00 cm",
+    "url": "https://makerworld.com/pt/models/1490292-bird-with-plug#profileId=1557526",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Gato Flexível Articulado",
+    "en": "Articulated Cat as a Decoration or Keychain",
+    "medidas": "L 8.95 x A 7.33 x P 0.81 cm",
+    "url": "https://makerworld.com/pt/models/1502076-articulated-cat-as-a-decoration-or-keychain#profileId=1571420",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Marcador de Página Gato",
+    "en": "Cat Bookmark 5",
+    "medidas": "L 5.31 x A 12.54 x P 0.50 cm",
+    "url": "https://makerworld.com/pt/models/1503915-cat-bookmark-5#profileId=1573624",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Cubo Quebra-Cabeça 3D",
+    "en": "3D Puzzle Cube 5-Piece Interlocking Brain Teaser",
+    "medidas": "L 7.39 x A 11.00 x P 0.33 cm",
+    "url": "https://makerworld.com/pt/models/1510303-3d-puzzle-cube-5-piece-interlocking-brain-teaser#profileId=1581206",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Palheta de Guitarra",
+    "en": "Guitar Pick",
+    "medidas": "L 2.61 x A 3.05 x P 0.04 cm",
+    "url": "https://makerworld.com/pt/models/857601-guitar-pick?from=search",
+    "preco": 4.99,
+    "ativo": true
+  }
+]
+    function formatCurrency(val) {
+      return val.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    }
+    function renderTable() {
+      const tbody = document.getElementById('itens-body');
+      tbody.innerHTML = '';
+      let totalItens = 0, valorTotal = 0;
+      itens.forEach((item, idx) => {
+        const valorLinha = item.qtd * item.preco;
+        if (item.ativo) {
+          totalItens += item.qtd;
+          valorTotal += valorLinha;
+        }
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>
+            <input type="checkbox" class="orcamento-checkbox" ${item.ativo ? "checked" : ""} onchange="toggleAtivo(${idx}, this.checked)">
+          </td>
+          <td>
+            <input type="number" class="input-qty" min="1" value="${item.qtd}" onchange="updateQty(${idx}, this.value)" ${item.ativo ? "" : "disabled"}>
+          </td>
+          <td>${item.nome}</td>
+          <td>${item.en}</td>
+          <td>${item.medidas}</td>
+          <td><a href="${item.url}" class="orcamento-link" target="_blank">Ver</a></td>
+          <td><input type="text" class="input-price" value="${formatCurrency(item.preco)}" readonly tabindex="-1"></td>
+          <td class="orcamento-total-value">${formatCurrency(valorLinha)}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+      document.getElementById('total-itens').textContent = totalItens;
+      document.getElementById('valor-total').textContent = formatCurrency(valorTotal);
+    }
+    function updateQty(idx, value) {
+      itens[idx].qtd = parseInt(value) || 1;
+      renderTable();
+    }
+    function toggleAtivo(idx, checked) {
+      itens[idx].ativo = checked;
+      renderTable();
+    }
+    window.onload = renderTable;
+  </script>
+</body>
+</html>
