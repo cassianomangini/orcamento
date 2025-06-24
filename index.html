@@ -30,7 +30,7 @@
       font-size: 15px;
     }
     body {
-      background-image: url("data:image/svg+xml,%3Csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFr[...]
+      background-image: url("data:image/svg+xml,%3Csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' fill='%231e2337'/%3E%3Crect width='100%25' height='100%25' opacity='0.06' filter='url(%23noise)'/%3E%3C/svg%3E");
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -430,7 +430,7 @@
     </div>
     <div class="orcamento-whatsapp">
       <a class="orcamento-whatsapp-btn" id="whatsapp-link" target="_blank">
-        <svg class="icon" viewBox="0 0 32 32"><circle fill="#fff" cx="16" cy="16" r="16"/><path d="M16 6.5a9.5 9.5 0 0 0-8.19 14.59L6.5 25.5l4.58-1.28A9.5 9.5 0 1 0 16 6.5zm5.42 13.08c-.23.65-1.35 1.2[...]
+        <svg class="icon" viewBox="0 0 32 32"><circle fill="#fff" cx="16" cy="16" r="16"/><path d="M16 6.5a9.5 9.5 0 0 0-8.19 14.59L6.5 25.5l4.58-1.28A9.5 9.5 0 1 0 16 6.5zm5.42 13.08c-.23.65-1.35 1.2[...]" fill="#25d366"/></svg>
         Enviar pedido no WhatsApp
       </a>
       <a class="orcamento-insta-link" href="https://www.instagram.com/artesopolis" target="_blank">@artesopolis</a>
@@ -442,7 +442,321 @@
   </div>
   <script>
     const itens = [
-  // ... [itens array permanece igual]
+  {
+    "qtd": 1,
+    "nome": "Formiga Jardineira com Pá",
+    "en": "Mini Gardener Ant Sculpture Digging with a Shovel",
+    "medidas": "L 6.94 x A 13.18 x P 0.30 cm",
+    "url": "https://makerworld.com/pt/models/1502384-mini-gardener-ant-sculpture-digging-with-a-shovel#profileId-1571762",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Caveira Sombria Urbana",
+    "en": "Inner Gloom Street Skull Reaper",
+    "medidas": "L 2.37 x A 2.60 x P 5.00 cm",
+    "url": "https://makerworld.com/pt/models/1491686-inner-gloom-street-skull-reaper#profileId-1559257",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Gota Tribal Estilizada",
+    "en": "Tribal Teardrop Clay Cutter for Polymer Clay",
+    "medidas": "L 2.05 x A 4.26 x P 1.70 cm",
+    "url": "https://makerworld.com/pt/models/729783-tribal-teardrop-clay-cutter-for-polymer-clay?from=search#profileId=756160",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Lua com Duplo Círculo",
+    "en": "Double Circle Clay Earring Moon Pendant Cutter",
+    "medidas": "L 4.23 x A 6.20 x P 1.27 cm",
+    "url": "https://makerworld.com/pt/models/1483889-double-circle-clay-earring-moon-pendant-cutter?from=search#profileId=1549927",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Pingente Abstrato Articulado",
+    "en": "Abstract Dangle Clay Cutter for Polymer Clay",
+    "medidas": "L 2.07 x A 3.80 x P 1.35 cm",
+    "url": "https://makerworld.com/pt/models/944866-abstract-dangle-clay-cutter-for-polymer-clay?from=search",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Mini Cortador Laranja Contorno Fino",
+    "en": "Orange Clay Cutter Micro Outline",
+    "medidas": "L 3.34 x A 3.34 x P 0.90 cm",
+    "url": "https://makerworld.com/pt/models/1190019-orange-clay-cutter-micro-outline?from=search#profileId=1201663",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Gota Lisa para Brincos",
+    "en": "Clay Cutter Drop",
+    "medidas": "L 1.64 x A 4.12 x P 1.00 cm",
+    "url": "https://makerworld.com/pt/models/917665-clay-cutter-drop?from=search#profileId=879325",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Cortador de Coração Suave",
+    "en": "Heart Cutter for Clay or Cookies",
+    "medidas": "L 1.70 x A 1.63 x P 1.10 cm",
+    "url": "https://makerworld.com/pt/models/120636-heart-cutter-for-clay-or-cookies?from=search#profileId=129783",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Cortador Boho Curvas Modernas",
+    "en": "Unique Boho 02 Clay Cutter for Polymer Clay",
+    "medidas": "L 3.60 x A 5.45 x P 1.35 cm",
+    "url": "https://makerworld.com/pt/models/595760-unique-boho-02-clay-cutter-for-polymer-clay?from=search#profileId=756039",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Base Clássica para Brincos",
+    "en": "Earring Clay Cutter",
+    "medidas": "L 10.77 x A 11.40 x P 1.60 cm",
+    "url": "https://makerworld.com/pt/models/617121-earring-clay-cutter?from=search#profileId=540756",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Folha de Três Pontas Elegante",
+    "en": "Three Part Leaf Feather Clay Cutter Earring",
+    "medidas": "L 2.43 x A 2.97 x P 1.25 cm",
+    "url": "https://makerworld.com/pt/models/1245566-three-part-leaf-feather-clay-cutter-earring?from=search#profileId=1266929",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Cortador de Pétalas Finas",
+    "en": "Clay Petal Cutter",
+    "medidas": "L 9.63 x A 12.59 x P 1.00 cm",
+    "url": "https://makerworld.com/pt/models/742063-clay-petal-cutter?from=search#profileId=674562",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Lua Texturizada com Flor",
+    "en": "Floral Embossed Moon Polymer Clay Earring Cutter",
+    "medidas": "L 4.24 x A 6.20 x P 1.27 cm",
+    "url": "https://makerworld.com/pt/models/698937-floral-embossed-moon-polymer-clay-earring-cutter?from=search#profileId=628173",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Ovo Estilizado Miniatura",
+    "en": "Egg Clay Earring Cutter",
+    "medidas": "L 8.80 x A 9.10 x P 1.40 cm",
+    "url": "https://makerworld.com/pt/models/638485-egg-clay-earring-cutter?from=search#profileId=564039",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Molde Circular Criativo nº13",
+    "en": "Polymer Clay Earring Mold 13",
+    "medidas": "L 10.70 x A 11.20 x P 1.60 cm",
+    "url": "https://makerworld.com/pt/models/740273-polymer-clay-earring-mold-13?from=search#profileId=672656",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Molde Geométrico Moderno nº38",
+    "en": "Polymer Clay Earring Mold 38",
+    "medidas": "L 2.25 x A 3.62 x P 1.30 cm",
+    "url": "https://makerworld.com/pt/models/1070691-polymer-clay-earring-mold-38?from=search#profileId=1060520",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Molde Elegante nº51",
+    "en": "Polymer Clay Earring Mold 51",
+    "medidas": "L 2.42 x A 7.69 x P 1.30 cm",
+    "url": "https://makerworld.com/pt/models/1281927-polymer-clay-earring-mold-51?from=search#profileId=1310030",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Kit de Cortadores Artísticos nº7",
+    "en": "Polymer Clay Cutter Mold Shape Pack 7",
+    "medidas": "L 10.77 x A 11.30 x P 1.60 cm",
+    "url": "https://makerworld.com/pt/models/1511116-polymer-clay-cutter-mold-shape-pack-7#profileId=1582191",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Soldadinho Malcriado Mini",
+    "en": "Green Army Man Soldier Middle Fingers Up Mini USA",
+    "medidas": "L 2.10 x A 3.51 x P 6.10 cm",
+    "url": "https://makerworld.com/pt/models/1495986-green-army-man-soldier-middle-fingers-up-mini-usa#profileId-1564328",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Mini Prancha de Dedo",
+    "en": "Fingersurfboard",
+    "medidas": "L 12.50 x A 7.13 x P 1.36 cm",
+    "url": "https://makerworld.com/pt/models/1502714-fingersurfboard#profileId=1574634",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Caixa Japonesa Estilizada",
+    "en": "Iris Storage Box",
+    "medidas": "L 11.44 x A 11.73 x P 0.95 cm",
+    "url": "https://makerworld.com/pt/models/1504492-iris-storage-box#profileId=1574292",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Porta-Remédio Compacto",
+    "en": "Pocket Pill Box Mini Box Small Storage Only 5g SMA",
+    "medidas": "L 4.00 x A 4.58 x P 1.20 cm",
+    "url": "https://makerworld.com/pt/models/1501442-pocket-pill-box-mini-box-small-storage-only-5g-sma#profileId=1570752",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Gorila Dá Um Toca",
+    "en": "High Five Gorilla",
+    "medidas": "L 3.06 x A 2.48 x P 3.16 cm",
+    "url": "https://makerworld.com/pt/models/1508952-high-five-gorilla#profileId=1579617",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Estátua Elefante com Filhote",
+    "en": "Elephant Mother Baby Statue",
+    "medidas": "L 9.62 x A 4.20 x P 7.75 cm",
+    "url": "https://makerworld.com/pt/models/1502741-elephant-mother-baby-statue#profileId=1572252",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Formiga Decorativa com Pá",
+    "en": "Garden Ant Sculpture",
+    "medidas": "L 6.94 x A 13.18 x P 0.30 cm",
+    "url": "https://makerworld.com/pt/models/1502358-garden-ant-sculpture#profileId=1571738",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Esqueleto Flexível com Óculos",
+    "en": "Flexi Skeleton Sunglasses Keychain",
+    "medidas": "L 3.66 x A 10.06 x P 1.89 cm",
+    "url": "https://makerworld.com/pt/models/1492932-flexi-skeleton-sunglasses-keychain#profileId=1560865",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Cubo Puzzle de Viagem",
+    "en": "Travel Cube Puzzle",
+    "medidas": "L 11.19 x A 7.72 x P 2.09 cm",
+    "url": "https://makerworld.com/pt/models/1503885-travel-cube-puzzle#profileId=1573591",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Calço de Porta com Setas",
+    "en": "Stackable Arrow Door Wedge Door Stop",
+    "medidas": "L 4.50 x A 10.90 x P 1.39 cm",
+    "url": "https://makerworld.com/pt/models/1509531-stackable-arrow-door-wedge-door-stop#profileId=1580292",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Plaquinha “Sem Ideia”",
+    "en": "I Have No Idea What I Am Doing",
+    "medidas": "L 6.22 x A 4.77 x P 0.14 cm",
+    "url": "https://makerworld.com/pt/models/1489771-i-have-no-idea-what-i-am-doing#profileId=1556944",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Formiga com Regador",
+    "en": "Garden Ant Sculpture with a Watering Can",
+    "medidas": "L 8.03 x A 12.69 x P 0.30 cm",
+    "url": "https://makerworld.com/pt/models/1502373-garden-ant-sculpture-with-a-watering-can#profileId=1571751",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Plaquinha “Problema do Eu do Futuro”",
+    "en": "That Sounds Like a Tomorrow Problem",
+    "medidas": "L 5.40 x A 7.54 x P 0.16 cm",
+    "url": "https://makerworld.com/pt/models/1495714-that-sounds-like-a-tomorrow-problem#profileId=1564028",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Pássaro com Plug",
+    "en": "Bird with Plug",
+    "medidas": "L 14.00 x A 21.36 x P 2.00 cm",
+    "url": "https://makerworld.com/pt/models/1490292-bird-with-plug#profileId=1557526",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Gato Flexível Articulado",
+    "en": "Articulated Cat as a Decoration or Keychain",
+    "medidas": "L 8.95 x A 7.33 x P 0.81 cm",
+    "url": "https://makerworld.com/pt/models/1502076-articulated-cat-as-a-decoration-or-keychain#profileId=1571420",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Marcador de Página Gato",
+    "en": "Cat Bookmark 5",
+    "medidas": "L 5.31 x A 12.54 x P 0.50 cm",
+    "url": "https://makerworld.com/pt/models/1503915-cat-bookmark-5#profileId=1573624",
+    "preco": 4.99,
+    "ativo": true
+  },
+  {
+    "qtd": 1,
+    "nome": "Cubo Quebra-Cabeça 3D",
+    "en": "3D Puzzle Cube 5-Piece Interlocking Brain Teaser",
+    "medidas": "L 7.39 x A 11.00 x P 0.33 cm",
+    "url": "https://makerworld.com/pt/models/1510303-3d-puzzle-cube-5-piece-interlocking-brain-teaser#profileId=1581206",
+    "preco": 4.99,
+    "ativo": true
+  },
   {
     "qtd": 1,
     "nome": "Palheta de Guitarra",
@@ -456,8 +770,7 @@
     function formatCurrency(val) {
       return val.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
     }
-
-    // Função para gerar mensagem e link do WhatsApp
+    // Função para gerar link do WhatsApp
     function gerarMensagemWhatsapp() {
       const lista = itens
         .filter(item => item.ativo)
@@ -467,7 +780,6 @@
       const numero = '5511997562871';
       return `https://wa.me/${numero}?text=${msg}`;
     }
-
     function renderTable() {
       const tbody = document.getElementById('itens-body');
       tbody.innerHTML = '';
